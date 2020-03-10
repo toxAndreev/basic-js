@@ -1,4 +1,4 @@
-Learn more or give us feedback
+
 const MODERN_ACTIVITY= 15; 
 const HALF_LIFE_PERIOD= 5730;
 
