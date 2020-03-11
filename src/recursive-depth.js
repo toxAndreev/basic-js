@@ -1,33 +1,15 @@
-const chainMaker = {
-  currentChain: [],
-  getLength() {
-    return this.currentChain.length;
-  },
-  addLink(value) {
-    this.currentChain.push(value === undefined ? '' : String(value));
-    return this;
-  },
-  removeLink(position) {
-    try{
-      if (isNaN(position)
-        || position < 1 
-        || position > this.currentChain.length
-        || Math.round(position) != position) throw new Error();
-      this.currentChain.splice(position - 1, 1);
-      return this;
+module.exports = class DepthCalculator {
+    calculateDepth(arr) {
+        if (Array.isArray(arr)) {
+            let depth = 1;
+            let max = 1;
+            for (let i = 0; i < arr.length; i++) {
+                if (Array.isArray(arr[i]))
+                    depth = this.calculateDepth(arr[i]) + 1;
+                max = max < depth ? depth : max;
+            }
+            return max;
+        }
+        return 1;
     }
-    catch(ex){
-      this.currentChain = [];
-      throw new Error();
-    }
-  },
-  reverseChain() {
-    this.currentChain.reverse();
-    return this;
-  },
-  finishChain() {
-    let retValue = this.currentChain.map(x => '( ' + x + ' )').join('~~');
-    this.currentChain = [];
-    return retValue;
-  }
 };
